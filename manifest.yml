@@ -1,0 +1,14 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: CriticalMonitor
+  host: CriticalMonitor
+  disk_quota: 1024M
+  services:
+  - iot-python
+  - iot-cloudant
+  - availability-monitoring-auto
+  - iot-twilio
+  buildpack: python_buildpack
