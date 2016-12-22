@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  table {
+    width:100%;
+    border:1px solid black;
+    border-collapse:collapse;
+    }
+    td, th {
+        width:200px;
+        border:1px solid black;
+        padding:5px;
+    }
+th {
+    background-color:red;
+}
+tbody {
+    height:200px;
+    overflow:scroll;
+}
+tbody, tfoot, thead {
+display:block;
+}
+</style>
+<head>
+    <script src="http://code.jquery.com/jquery-latest.js"> </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="js/plotGauge.js"></script>
+    <script src="js/plotLine.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            if (!!window.EventSource) {
+                if(typeof(EventSource) !== "undefined") {
+                    $("#log").text("EventSource Supported");
+                } else {
+                    $("#log").text("EventSource Not Supported");
+                }
+                var source = new EventSource("/events");
+                source.onmessage = function(event) {
+                    var jsonData = JSON.parse(event.data);
+                    $("#data").text(jsonData.deviceId);
+                    $("#eventLog").text(event.data);
+                    var timestamp = new Date(jsonData["timestamp"] * 1000);
+
+                    updateGaugeACVoltage(jsonData["AC Voltage"]);
+                    updateLineACVoltage(timestamp, jsonData["AC Voltage"]);
+
+                    updateGaugeACCurrent(jsonData["AC Current"]);
+                    updateLineACCurrent(timestamp, jsonData["AC Current"]);
+
+                    updateGaugeDCVoltage(jsonData["DC Voltage"]);
+                    updateLineDCVoltage(timestamp, jsonData["DC Voltage"]);
+
+                    updateGaugeDCCurrent(jsonData["DC Current"]);
+                    updateLineDCCurrent(timestamp, jsonData["DC Current"]);
+
+                    updateGaugeAirFlow(jsonData["Air Flow"]);
+                    updateLineAirFlow(timestamp, jsonData["Air Flow"]);
+                }
+            }
+            else {
+                $("#data").text("EventSource not found");
+            }
+            $('a#deviceSelect').bind('click', function() {
+                $.getJSON("/livedeviceselect", {
+                    deviceId: $('input[name="deviceId"]').val(),
+                    deviceType: "RaspberryPi",
+                    event: "sensor",
+                }, function(data) {
+                  $("#myDiv").text(JSON.stringify(data.result));
+                });
+            });
+            createGaugeACVoltage(0);
+            createLineACVoltage();
+
+            createGaugeACCurrent(0);
+            createLineACCurrent();
+
+            createGaugeDCVoltage(0);
+            createLineDCVoltage();
+
+            createGaugeDCCurrent(0);
+            createLineDCCurrent();
+
+            createGaugeAirFlow(0);
+            createLineAirFlow();
+
+        });
+    </script>
+
+<meta charset="UTF-8">
+<title>Critical Monitor</title>
+
+
+</head>
+
+
+<body>
+<div>Set Device: </div>
+<div><span> Device ID: </span> <span> <input name="deviceId" type="text" placeholder="b827ebc03307"/>  </span>
+    <span> <p><a href="javascript:void();" id="deviceSelect">Select Device</a> </span></div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+    <div id="airflowgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="airflowline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:400px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+    <div id="acvoltagegauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="acvoltageline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+    <div id="accurrentgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="accurrentline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+    <div id="dcvoltagegauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="dcvoltageline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+    <div id="dccurrentgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="dccurrentline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+</body>
+</html>

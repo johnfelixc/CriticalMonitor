@@ -1,24 +1,96 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/TweenLite.min.js"></script>
+<script type="text/javascript" src="js/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 
-  <head>
-    <title>Python Flask Starter Application</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/stylesheets/style.css">
-  </head>
+<title>Critical Care Control Center</title>
+<link rel = "stylesheet" type = "text/css" href = "css/main.css" />
 
-  <body>
-    <table>
-      <tr>
-        <td style= "width:30%;">
-          <img class = "newappIcon" src="static/images/newapp-icon.png">
-        <td>
-            <h1>Hi there!</h1>
-          <p>Thanks for creating a
-            <span class = "blue">Python <a href = "http://flask.pocoo.org/">Flask</a> Starter Application</span>.
-    </table>
-  </body>
+</head>
 
+<body link="#FFFFFF">
+<!--header-->
+<div style="width:100%; height:80px; overflow:hidden; margin: 0 auto; background-color:#333">
+
+  <div style="width:750px; height:80px; margin: 0 auto; overflow:hidden; position:relative">
+		
+        <div id="caption" style="height:44px; margin-top:20px;float:left; margin-left:12px; position:absolute"> Critical Care Control Center</div>
+        
+        <div id="backbutton" style="height:44px; width:44px; margin-top:15px; float:left; position:absolute"> <img src="imgs/backbtn.png" width="44" height="44" /> </div>
+        
+       <div id="pagecaption" style="height:44px; margin-top:20px;float:left; margin-left:12px; position:absolute"> Caption </div>
+  </div>
+
+</div>
+
+<!--buttons-->
+<div style="width:1200px; height:700px; overflow:hidden; margin: 0 auto; position:relative; margin-top:35px;">
+
+	<a href="live.html" target="main"><div id="btn1" style="float:left"> <p> Live </p> </div> </a>
+    <a href="history.html" target="main"><div id="btn2" style="float:left"> <p> History </p> </div> </a>
+    <a href="rules.html" target="main"><div id="btn3" style="float:left"> <p> Alerts </p> </div> </a>
+    <a href="4.html" target="main"><div id="btn4" style="float:left"> <p> Settings </p> </div> </a>
+
+    <div id="content" style="position:absolute; "> <iframe name="main" frameborder=0 height=2000 width=1200></iframe>  </div>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  TweenLite.to($("#caption"),2,{css:{top:0},delay:1, ease:Power2.easeOut});
+  TweenLite.to($("#btn1"),2,{css:{left:0},delay:2, ease:Power2.easeOut});
+  TweenLite.to($("#btn2"),2,{css:{left:20},delay:2.5, ease:Power2.easeOut});
+  TweenLite.to($("#btn3"),2,{css:{left:40},delay:3, ease:Power2.easeOut});
+  TweenLite.to($("#btn4"),2,{css:{left:60},delay:3.5, ease:Power2.easeOut});
+  });
+  
+  
+  $("#btn1").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:70}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Live Status");
+	 
+  });
+  
+  $("#btn2").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:70}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("History");
+	 
+  });
+  
+  $("#btn3").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:70}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Alerts - Rules");
+	 
+  });
+  
+  $("#btn4").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:70}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Settings  ");
+	 
+  });
+  
+   $("#backbutton").click(function(){
+	    TweenLite.to($("#content"),1,{css:{top:900}, ease:Power2.easeIn});
+		TweenLite.to($("#backbutton"),1,{css:{left:850, rotation:0}, ease:Power2.easeIn});
+		TweenLite.to($("#pagecaption"),1,{css:{top:-60}, ease:Power2.easeOut});
+		TweenLite.to($("#caption"),1,{css:{top:0}, ease:Power2.easeOut});
+	});   
+</script>	
+
+</body>
 </html>

@@ -1,19 +1,19 @@
-#Sample Bluemix Python Web application
+#Critical Care Control Center Application
 
-The sample is using [Flask microframework](http://flask.pocoo.org/) and is intented to test the Python support on [IBM's Bluemix](https://bluemix.net/) environment which is based on Cloud Foundry.
+The application is using [Flask microframework](http://flask.pocoo.org/) and is intented to demonstrate the Python support on [IBM's Bluemix](https://bluemix.net/) environment which is based on Cloud Foundry.
 
 IBM Bluemix contains the Python buildpack from [Cloud Foundry](https://github.com/cloudfoundry/python-buildpack) and so will be auto-detected as long as a requirements.txt or a setup.py is located in the root of your application.
 
 If you just wish to automatically deploy this sample to Bluemix then just click the 'Deploy to Bluemix' button and see this sample deployed into your space.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/bluemix-python-flask-sample)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/johnfelixc/CriticalMonitor)
 
 Alternatively follow the steps below to get the sample code and see how to deploy manually.
 
 ##Get this sample
 From a terminal navigate to a location where you want this application code to be downloaded to and issue:
 ```bash
-git clone https://github.com/IBM-Bluemix/bluemix-python-flask-sample
+git clone https://github.com/johnfelixc/CriticalMonitor
 ```
 or download the zip file containing this sample code.
 
