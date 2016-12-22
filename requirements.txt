@@ -1,3 +1,4 @@
 Flask
 ibmiotf
 twilio
+cloudant
