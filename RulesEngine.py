@@ -36,7 +36,7 @@ class RulesEngine(object):
                 if "refresh" in ruleDoc:
                     refreshDuration = ruleDoc["refresh"]
 
-                print("Refresh Duration: " + str(refreshDuration))
+                #print("Refresh Duration: " + str(refreshDuration))
                 if ruleID in self.triggeredRules:
                     timediff = time.time() - self.triggeredRules[ruleID]
                     if timediff > refreshDuration:
