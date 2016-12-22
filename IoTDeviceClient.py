@@ -50,8 +50,8 @@ class IoTDeviceClient(object):
         self.client.subscribeToDeviceStatus(deviceType, deviceId)
 
     def eventCallback(self, event):
-        print("Event")
-        print(json.dumps(event.data))
+        #print("Event")
+        #print(json.dumps(event.data))
         jsonData = {}
         jsonData["timestamp"] = event.timestamp.timestamp()
         jsonData["event"] = event.event
