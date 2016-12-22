@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  table {
+    width:100%;
+    border:1px solid black;
+    border-collapse:collapse;
+    }
+    td, th {
+        width:200px;
+        border:1px solid black;
+        padding:5px;
+    }
+th {
+    background-color:red;
+}
+tbody {
+    height:200px;
+    overflow:scroll;
+}
+tbody, tfoot, thead {
+display:block;
+}
+</style>
+<head>
+    <script src="http://code.jquery.com/jquery-latest.js"> </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="js/plotLineSlider.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('a#getrecords').bind('click', function() {
+                $.getJSON("/query", {
+                    deviceId: $('input[name="deviceId"]').val(),
+                    deviceType: $('select[name="deviceType"]').val(),
+                    starttime: $('input[name="starttime"]').val(),
+                    endtime: $('input[name="endtime"]').val()
+                }, function(data) {
+                    createLineSliderPlot(data.result);
+                  $("#log").text(timestampElements);
+                });
+            });
+
+
+        });
+    </script>
+    <meta charset="UTF-8">
+    <title>Critical Monitor</title>
+
+
+</head>
+
+
+<body>
+<div><span> Device ID: </span> <span> <input name="deviceId" type="text" placeholder="b827ebc03307" value="b827ebc03307"/> </span></div>
+<div><span> Device Type: </span> <span> <select name="deviceType">   <option value="all">All</option> <option value="RaspberryPi">Raspberry Pi</option> </select> </span></div>
+<div><span> Start Time : </span> <span> <input type="datetime-local" name="starttime"  value="2016-12-19T11:11"> </span></div>
+<div><span> End Time : </span> <span> <input type="datetime-local" name="endtime" value="2016-12-19T11:12"> </span></div>
+<p><a href="javascript:void();" id="getrecords">Get Records</a>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+    <div id="airflowlinehistory" style="height:90%; width: 90%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:400px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> AC Voltage </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+
+    <div id="acvoltagelinehistory" style="height:90%; width: 90%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> AC Current </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+
+    <div id="accurrentlinehistory" style="height:90%; width: 90%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+
+    <div id="dcvoltagelinehistory" style="height:90%; width: 90%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+<div style="float:left; height:450px; width:900px; overflow: hidden">
+    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
+    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
+
+    <div id="dccurrentlinehistory" style="height:90%; width: 90%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+
+
+<div id="log">Received Object</div>
+<div id="eventLog"> </div>
+
+</body>
+</html>
