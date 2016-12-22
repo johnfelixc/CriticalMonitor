@@ -16,8 +16,8 @@ class MessageClient(object):
 
         print("SMS to :" + sendto)
         print("Message: " + msg)
-        #resp = self.twilioClient.messages.create(to=sendto, from_=config["twilioNumber"], body=msg)
-        #print(resp)
+        resp = self.twilioClient.messages.create(to=sendto, from_=config["twilioNumber"], body=msg)
+        print(resp)
         return
 
     def alertEMail(self, sendto, msg):
@@ -28,8 +28,8 @@ class MessageClient(object):
         msg['From'] = "criticalcare@hexaware.com"
         msg['To'] = sendto
 
-        s = smtplib.SMTP('localhost')
-        s.send_message(msg)
-        s.quit()
+        #s = smtplib.SMTP('localhost')
+        #s.send_message(msg)
+        #s.quit()
 
         return
