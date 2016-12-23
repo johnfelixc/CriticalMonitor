@@ -19,117 +19,47 @@
   width:300px;
   background-color:#ccc;
 }
+
+.ruleid-div-table-col{
+  float:left;/*fix for  buggy browsers*/
+  display:table-column;
+  width:120px;
+  background-color:#ccc;
+}
+.deviceid-div-table-col{
+  float:left;/*fix for  buggy browsers*/
+  display:table-column;
+  width:140px;
+  background-color:#ccc;
+}
+.conditions-div-table-col{
+  float:left;/*fix for  buggy browsers*/
+  display:table-column;
+  width:270px;
+  background-color:#ccc;
+}
+.actions-div-table-col{
+  float:left;/*fix for  buggy browsers*/
+  display:table-column;
+  width:300px;
+  background-color:#ccc;
+}
 input[type=number]{
     width: 90px;
 }
 </style>
 <head>
     <script src="http://code.jquery.com/jquery-latest.js"> </script>
+    <script src="js/rules.js"> </script>
     <script type="text/javascript">
-
-        var selectCondItems = {
-            "==" : "==",
-            "!" : "!",
-            "<" : "<",
-            "<=": "<=",
-            ">" : ">",
-            ">=" : ">="
-        };
-        var selectParamItems = {
-            "Air Flow" : "Air Flow",
-            "AC Voltage" : "AC Voltage",
-            "AC Current" : "AC Current",
-            "DC Voltage": "DC Voltage",
-            "DC Current" : "DC Current"
-        };
-        function addLogic(divName) {
-            var newDiv = document.createElement("span");
-            var newSelect = document.createElement("select");
-            newSelect.name = "paramList[]";
-            var newCondSelect = document.createElement("select");
-            newCondSelect.name = "condList[]";
-            var newInput = document.createElement("input");
-            newInput.type = "number";
-            newInput.name = "valueList[]";
-
-            jQuery.each(selectCondItems, function(text, value) {
-                var opt = document.createElement("option");
-                opt.value= value;
-                opt.text = text;
-
-                newCondSelect.appendChild(opt);
-            });
-            jQuery.each(selectParamItems, function(text, value) {
-                var opt = document.createElement("option");
-                opt.value= value;
-                opt.text = text;
-
-                newSelect.appendChild(opt);
-            });
-
-            newDiv.appendChild(newSelect);
-            newDiv.appendChild(newCondSelect);
-            newDiv.appendChild(newInput);
-            newDiv.appendChild(document.createElement("br"))
-            document.getElementById(divName).appendChild(newDiv);
-        }
-
-        function addRule() {
-
-            var rules = {};
-            var jsonData = {};
-
-
-            var params = $("select[name='paramList[]']")
-              .map(function(){return $(this).val();}).get();
-
-            var conds = $("select[name='condList[]']")
-              .map(function(){return $(this).val();}).get();
-
-            var values = $("input[name='valueList[]']")
-              .map(function(){return $(this).val();}).get();
-
-            var deviceId = document.getElementById("deviceId").value;
-
-            var paramsLength = params.length;
-            rules["and"] = [];
-            for (var index = 0; index < paramsLength; index++) {
-                var condStr = {};
-                condStr[conds[index]] = [{"var": params[index]}, parseFloat(values[index])];
-                rules.and.push(condStr);
-            }
-
-            if (deviceId) {
-                var deviceCond = {};
-                deviceCond["=="] = [{"var": "deviceId"}, deviceId];
-                rules.and.push(deviceCond);
-            }
-
-
-            jsonData["rules"] = rules;
-            jsonData["message"] = document.getElementById("alertMessage").value;
-
-            if(document.getElementById("msgtype").selectedIndex == 0) {
-                jsonData["email"] = document.getElementById("sendto").value;
-            }
-            else {
-                jsonData["sms"] = document.getElementById("sendto").value;
-            }
-            jsonData["id"] = document.getElementById("ruleid").value;
-            jsonData["refresh"] = 30;
-
-            $.ajax({
-                type: 'POST',
-                url: "/addrule",
-                data: JSON.stringify(jsonData),
-                dataType: "json",
-                contentType: "application/json"
-                }).done(function(msg) {
-                alert("Data Saved: " + JSON.stringify(msg));
+        $(function() {
+            $.getJSON("/getrule", function(data) {
+                    var rulesList = data.result;
+                    for(var index = 0, size = rulesList.length; index < size ; index++) {
+                        displayRuleRow(rulesList[index]);
+                    }
                 });
-
-        }
-
+        });
     </script>
 
     <meta charset="UTF-8">
@@ -140,35 +70,25 @@ input[type=number]{
 
 
 <body>
-<div class="div-table">
+<div class="div-table" id="rulesTable">
     <div class="div-table-row">
-        <div class="div-table-col" align="center">Rule ID</div>
-        <div class="div-table-col"> Device ID</div>
-        <div  class="div-table-col">Conditions</div>
-        <div  class="div-table-col">Action</div>
+        <div class="ruleid-div-table-col" align="center"><b> Rule ID </b> </div>
+            <div class="deviceid-div-table-col"> <b> Device ID </b> </div>
+        <div  class="conditions-div-table-col"> <b> Conditions </b> </div>
+        <div  class="actions-div-table-col"> <b> Action</b></div>
     </div>
+</div>
+<div class="div-table" id="defineRules">
     <div class="div-table-row">
-        <div class="div-table-col">xxx</div>
-        <div class="div-table-col"> cc </div>
-        <div class="div-table-col">yyy</div>
-        <div class="div-table-col">www</div>
-    </div>
-    <div class="divRow">
-        <div class="div-table-col">ttt</div>
-        <div class="div-table-col"> cc </div>
-        <div class="div-table-col">uuu</div>
-        <div class="div-table-col">Mkkk</div>
-    </div>
-    <div class="div-table-row">
-        <div class="div-table-col"><input type="text" id="ruleid"></div>
-        <div class="div-table-col"><input type="text" id="deviceId"></div>
-        <div class="div-table-col" id="rulelist"><input type="button" value="Add Condition" onClick="addLogic('rulelist');"><br></div>
-        <div class="div-table-col">
+        <div class="ruleid-div-table-col"><input type="number" id="ruleid" disabled></div>
+        <div class="deviceid-div-table-col"><input type="text" id="deviceId" size="10"></div>
+        <div class="conditions-div-table-col" id="rulelist"><input type="button" value="Add Condition" onClick="addLogic('rulelist');"><br></div>
+        <div class="actions-div-table-col">
             <select id="msgtype"> <option value="email"> Email </option> <option value="sms" selected="selected"> SMS </option> </select><input type="text" id="sendto">
             <br> Message <br> <textarea rows="4" cols="36" id='alertMessage'> Please enter alert message</textarea> <br>
             <input type="button" value="Add Rule" onClick="addRule();">
         </div>
     </div>
-
+</div>
 </body>
 </html>

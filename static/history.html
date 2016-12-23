@@ -36,7 +36,6 @@ display:block;
                     endtime: $('input[name="endtime"]').val()
                 }, function(data) {
                     createLineSliderPlot(data.result);
-                  $("#log").text(timestampElements);
                 });
             });
 
@@ -90,11 +89,6 @@ display:block;
 
     <div id="dccurrentlinehistory" style="height:90%; width: 90%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
 </div>
-
-
-
-<div id="log">Received Object</div>
-<div id="eventLog"> </div>
 
 </body>
 </html>
