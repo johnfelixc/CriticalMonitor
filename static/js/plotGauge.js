@@ -62,10 +62,14 @@ function getLayoutTemplate() {
         }],
       height: 450,
       width: 450,
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
       xaxis: {zeroline:false, showticklabels:false,
                  showgrid: false, range: [-1, 1]},
       yaxis: {zeroline:false, showticklabels:false,
                  showgrid: false, range: [-1, 1]}
+
     };
 
     return layout;

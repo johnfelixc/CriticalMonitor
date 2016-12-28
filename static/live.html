@@ -1,90 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-  table {
-    width:100%;
-    border:1px solid black;
-    border-collapse:collapse;
+    .getbutton{
+        background:#06F;
+        height:25px;
+        width:130px;
+        position:relative;
+        margin-left:10px;
+        cursor:pointer;
+        padding:10px;
+
+        color:#FFF;
+        font-size:18px;
+        font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+
+        text-align:center;
+        text-align-all:center;
+        align-content: center;
+        vertical-align: bottom;
     }
-    td, th {
-        width:200px;
-        border:1px solid black;
-        padding:5px;
+
+    #getform div{
+        background-color: #00cc99;
+        padding-top:3px;
+        padding-left:3px;
+        margin: 0;
+
     }
-th {
-    background-color:red;
-}
-tbody {
-    height:200px;
-    overflow:scroll;
-}
-tbody, tfoot, thead {
-display:block;
-}
+    .plottitlehorizontal {
+        float:left;
+        height:10%;
+        width:100%;
+        background-color: #00cc99;
+        overflow: hidden;
+        padding-top: 20px;
+        padding-left: 400px;
+
+        color:#000;
+        font-size:20px;
+        font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        line-height:100%;
+
+    }
+    .plottitlevertical {
+        float:left;
+        height:90%;
+        width:10%;
+        overflow: hidden;
+        display: none;
+
+    }
+    .plotcontent {
+        float:left;
+        height:90%;
+        width:90%;
+        overflow: hidden
+
+    }
 </style>
 <head>
     <script src="http://code.jquery.com/jquery-latest.js"> </script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="js/plotGauge.js"></script>
     <script src="js/plotLine.js"></script>
+    <script src="js/appmain.js"></script>
 
     <script type="text/javascript">
         $(function() {
-            if (!!window.EventSource) {
-                if(typeof(EventSource) !== "undefined") {
-                    $("#log").text("EventSource Supported");
-                } else {
-                    $("#log").text("EventSource Not Supported");
-                }
-                var source = new EventSource("/events");
-                source.onmessage = function(event) {
-                    var jsonData = JSON.parse(event.data);
-                    $("#data").text(jsonData.deviceId);
-                    $("#eventLog").text(event.data);
-                    var timestamp = new Date(jsonData["timestamp"] * 1000);
-
-                    updateGaugeACVoltage(jsonData["AC Voltage"]);
-                    updateLineACVoltage(timestamp, jsonData["AC Voltage"]);
-
-                    updateGaugeACCurrent(jsonData["AC Current"]);
-                    updateLineACCurrent(timestamp, jsonData["AC Current"]);
-
-                    updateGaugeDCVoltage(jsonData["DC Voltage"]);
-                    updateLineDCVoltage(timestamp, jsonData["DC Voltage"]);
-
-                    updateGaugeDCCurrent(jsonData["DC Current"]);
-                    updateLineDCCurrent(timestamp, jsonData["DC Current"]);
-
-                    updateGaugeAirFlow(jsonData["Air Flow"]);
-                    updateLineAirFlow(timestamp, jsonData["Air Flow"]);
-                }
-            }
-            else {
-                $("#data").text("EventSource not found");
-            }
             $('a#deviceSelect').bind('click', function() {
                 $.getJSON("/livedeviceselect", {
                     deviceId: $('input[name="deviceId"]').val(),
                     deviceType: "RaspberryPi",
                     event: "sensor",
                 }, function(data) {
-                  $("#myDiv").text(JSON.stringify(data.result));
+                  alert(JSON.stringify(data.result));
+                  createLivePlots();
+                  registerLiveEvents();
+                  document.getElementById("plot-container").style.display = "inherit";
                 });
+
             });
-            createGaugeACVoltage(0);
-            createLineACVoltage();
 
-            createGaugeACCurrent(0);
-            createLineACCurrent();
-
-            createGaugeDCVoltage(0);
-            createLineDCVoltage();
-
-            createGaugeDCCurrent(0);
-            createLineDCCurrent();
-
-            createGaugeAirFlow(0);
-            createLineAirFlow();
 
         });
     </script>
@@ -97,43 +93,54 @@ display:block;
 
 
 <body>
-<div>Set Device: </div>
-<div><span> Device ID: </span> <span> <input name="deviceId" type="text" placeholder="b827ebc03307"/>  </span>
-    <span> <p><a href="javascript:void();" id="deviceSelect">Select Device</a> </span></div>
-
-<div style="float:left; height:450px; width:900px; overflow: hidden">
-    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
-    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
-    <div id="airflowgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id="airflowline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="getform" style="float:left; height:70px; width:1200px">
+    <div style="float:left; height:90%; width:40%">
+        <div style="float:left; height:80%; width:35%; padding-top: 10px">
+            Device ID
+        </div>
+        <div style="float:left; height:80%; width:50%; padding-top: 10px">
+            <input name="deviceId" type="text" placeholder="b827ebc03307" value="b827ebc03307"/>
+        </div>
+    </div>
+    <div style="float:left; height:90%; width:18%">
+        <a href="javascript:void(deviceId)" id="deviceSelect"><div class="getbutton" style="background-color: darkgreen; margin-top: 15px;"> Select Device</div></a>
+    </div>
 </div>
+<div id="plot-container" style="display:none">
+    <div style="float:left; height:450px; width:900px; overflow: hidden">
+        <div class="plottitlehorizontal"> Air Flow </div>
+        <div class="plottitlevertical"></div>
+        <div id="airflowgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <div id="airflowline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    </div>
 
-<div style="float:left; height:400px; width:900px; overflow: hidden">
-    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
-    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
-    <div id="acvoltagegauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id="acvoltageline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-</div>
+    <div style="float:left; height:450px; width:900px; overflow: hidden">
+        <div class="plottitlehorizontal"> AC Voltage </div>
+        <div class="plottitlevertical"></div>
+        <div id="acvoltagegauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <div id="acvoltageline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    </div>
 
-<div style="float:left; height:450px; width:900px; overflow: hidden">
-    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
-    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
-    <div id="accurrentgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id="accurrentline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-</div>
+    <div style="float:left; height:450px; width:900px; overflow: hidden">
+        <div class="plottitlehorizontal"> AC Current </div>
+        <div class="plottitlevertical"></div>
+        <div id="accurrentgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <div id="accurrentline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    </div>
 
-<div style="float:left; height:450px; width:900px; overflow: hidden">
-    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
-    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
-    <div id="dcvoltagegauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id="dcvoltageline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-</div>
+    <div style="float:left; height:450px; width:900px; overflow: hidden">
+        <div class="plottitlehorizontal"> DC Voltage </div>
+        <div class="plottitlevertical"></div>
+        <div id="dcvoltagegauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <div id="dcvoltageline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    </div>
 
-<div style="float:left; height:450px; width:900px; overflow: hidden">
-    <div style="float:left; height:10%; width:100%; background-color: green; overflow: hidden"> Air Flow </div>
-    <div style="float:left; height:90%; width:10%; background-color: green; overflow: hidden;"></div>
-    <div id="dccurrentgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id="dccurrentline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div style="float:left; height:450px; width:900px; overflow: hidden">
+        <div class="plottitlehorizontal"> DC Current </div>
+        <div class="plottitlevertical"></div>
+        <div id="dccurrentgauge" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+        <div id="dccurrentline" style="width: 45%; float: left; overflow: hidden;"><!-- Plotly chart will be drawn inside this DIV --></div>
+    </div>
 </div>
 
 </body>

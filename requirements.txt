@@ -2,3 +2,4 @@ Flask
 ibmiotf
 twilio
 cloudant
+sendgrid
