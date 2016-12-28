@@ -23,13 +23,15 @@ def events():
 
 @app.route("/livedeviceselect")
 def livedeviceselect():
-    print(request.args)
+    #print(request.args)
     deviceId = request.args.get('deviceId')
 
     if deviceId and not (deviceId == "all"):
         iotClient.setLiveDevice(deviceId)
 
-    return jsonify(result=deviceId)
+    strres = "Live device " + deviceId + " selected."
+
+    return jsonify(result=strres)
 
 @app.route("/addrule", methods=['GET', 'POST'])
 def addrule():
@@ -40,15 +42,19 @@ def addrule():
     dbClient.addAlert(ruleDoc)
     alertEngine.addRulesToEngine(ruleDoc)
 
-    return jsonify(result="ok")
+    return jsonify(result="Rule added successfully.")
 
 @app.route("/getrule", methods=['GET', 'POST'])
 def getrule():
     return jsonify(result=dbClient.queryAlerts())
 
+@app.route("/getsettings", methods=['GET', 'POST'])
+def getsettings():
+    return jsonify(result=config)
+
 @app.route("/query")
 def query():
-    print(request.args)
+    #print(request.args)
     deviceId = request.args.get('deviceId')
     deviceType = request.args.get("deviceType")
     starttime = request.args.get("starttime")
@@ -69,9 +75,9 @@ def query():
     if dateRange:
         jsonQuery["timestamp"] = dateRange
 
-    print(jsonQuery)
+    #print(jsonQuery)
     jsonData = dbClient.queryDoc(jsonQuery, ["timestamp", "Air Flow", "AC Voltage", "AC Current", "DC Voltage", "DC Current"])
-    print(jsonData)
+    #print(jsonData)
 
     return jsonify(result=jsonData)
 

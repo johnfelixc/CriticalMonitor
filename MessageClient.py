@@ -1,15 +1,13 @@
 
-
-import time
 from twilio.rest import TwilioRestClient
-import smtplib
-from email.mime.text import MIMEText
+import sendgrid
 from Environ import config
 
 class MessageClient(object):
 
     def __init__(self):
         self.twilioClient = TwilioRestClient(config["twilioAccount"], config["twilioToken"])
+        self.mailClient = sendgrid.SendGridAPIClient(apikey=config["sendgridToken"])
         pass
 
     def alertSMS(self, sendto, msg):
@@ -23,13 +21,32 @@ class MessageClient(object):
     def alertEMail(self, sendto, msg):
         print("Email to :" + sendto)
         print("Message: " + msg)
-        msg = MIMEText(msg)
-        msg['Subject'] = "Alert: Critcal Care Control Center"
-        msg['From'] = "criticalcare@hexaware.com"
-        msg['To'] = sendto
 
-        #s = smtplib.SMTP('localhost')
-        #s.send_message(msg)
-        #s.quit()
+        mailData = {
+            "personalizations": [
+                {
+                    "to": [
+                        {
+                            "email": sendto
+                        }
+                    ],
+                    "subject": "Alert: Critical Care Control Center"
+                }
+            ],
+            "from": {
+                "email": "criticalcare@hexaware.com"
+            },
+            "content": [
+                {
+                    "type": "text/plain",
+                    "value": msg
+                }
+            ]
+        }
+        response = self.mailClient.client.mail.send.post(request_body=mailData)
+        print(response.status_code)
+        #print(response.body)
+        #print(response.headers)
+
 
         return

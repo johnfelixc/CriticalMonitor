@@ -54,6 +54,8 @@ class Environ(object):
             self.twilioAccount = self.service["user-provided"][0]["credentials"]["accountSID"]
             self.twilioToken = self.service["user-provided"][0]["credentials"]["authToken"]
             self.twilioNumber = "+4915735985470"
+
+            self.sendgridToken = "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"
         else:
             # Not running in Bluemix, so you need to set up your own properties for local testing.
             # Ensure you blank these out before committing/uploading the code
@@ -73,6 +75,8 @@ class Environ(object):
             self.twilioAccount = "AC217f6fd71bd0ddb1f7aab0ce5c811be4"
             self.twilioToken = "4237954a775fa60d5c4621d2e7755a7e"
             self.twilioNumber = "+4915735985470"
+
+            self.sendgridToken = "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"
 
     def formatConfig(self):
 
@@ -99,6 +103,8 @@ class Environ(object):
         configParam["twilioAccount"] = self.twilioAccount
         configParam["twilioToken"] = self.twilioToken
         configParam["twilioNumber"] = self.twilioNumber
+
+        configParam["sendgridToken"] = self.sendgridToken
 
         return configParam
 

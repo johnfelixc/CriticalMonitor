@@ -14,6 +14,9 @@ function createLineACVoltage() {
 
     var layout = {
       title: 'AC Voltage (in volts)',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
       xaxis: {
         title: 'Time'
       },
@@ -50,6 +53,9 @@ function createLineACCurrent() {
 
     var layout = {
       title: 'AC Current (in amps)',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
       xaxis: {
         title: 'Time'
       },
@@ -86,6 +92,9 @@ function createLineDCVoltage() {
 
     var layout = {
       title: 'DC Voltage (in volts)',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
       xaxis: {
         title: 'Time'
       },
@@ -122,6 +131,9 @@ function createLineDCCurrent() {
 
     var layout = {
       title: 'DC Current (in amps)',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
       xaxis: {
         title: 'Time'
       },
@@ -158,6 +170,9 @@ function createLineAirFlow() {
 
     var layout = {
       title: 'Air Flow (in pascal)',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
       xaxis: {
         title: 'Time'
       },

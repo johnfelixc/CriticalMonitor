@@ -49,53 +49,44 @@ function createLineSliderPlot(dataset) {
     }];
     var layout = {
         title: 'Air Flow',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
         xaxis: {
             rangeselector: getSelectorOptions(),
-            rangeslider: {}
+            rangeslider: {},
+            title: "Date-Time"
         },
         yaxis: {
-            fixedrange: true
-        }
+            fixedrange: true,
+            title: ""
+        },
+        height: 400,
+        width: 900
     };
 
     data[0].y = dataset["Air Flow"];
     layout.title = "Air Flow";
+    layout.yaxis.title = "Pascal (pas)";
     Plotly.newPlot('airflowlinehistory', data, layout);
 
     data[0].y = dataset["AC Voltage"];
     layout.title = "AC Voltage";
+    layout.yaxis.title = "Voltage (V)";
     Plotly.newPlot('acvoltagelinehistory', data, layout);
 
     data[0].y = dataset["AC Current"];
     layout.title = "AC Current";
+    layout.yaxis.title = "Amps (A)";
     Plotly.newPlot('accurrentlinehistory', data, layout);
 
     data[0].y = dataset["DC Voltage"];
     layout.title = "DC Voltage";
+    layout.yaxis.title = "Voltage (V)";
     Plotly.newPlot('dcvoltagelinehistory', data, layout);
 
     data[0].y = dataset["DC Current"];
     layout.title = "DC Current";
+    layout.yaxis.title = "Amps (A)";
     Plotly.newPlot('dccurrentlinehistory', data, layout);
-}
-
-function createLineSliderAirFlow(timeData, sensorData) {
-
-    var data = [{
-        mode: 'lines',
-        x: timeData,
-        y: sensorData
-    }];
-    var layout = {
-        title: 'Air Flow',
-        xaxis: {
-            rangeselector: getSelectorOptions(),
-            rangeslider: {}
-        },
-        yaxis: {
-            fixedrange: true
-        }
-    };
-
-    Plotly.newPlot('airflowlinehistory', data, layout);
 }
