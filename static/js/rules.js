@@ -94,7 +94,7 @@ function addRule() {
 
     displayRuleRow(jsonData);
 
-   /* $.ajax({
+    $.ajax({
         type: 'POST',
         url: "/addrule",
         data: JSON.stringify(jsonData),
@@ -102,8 +102,7 @@ function addRule() {
         contentType: "application/json"
         }).done(function(msg) {
         alert("Data Saved: " + JSON.stringify(msg));
-        }); */
-
+        });
 }
 function displayRuleRow(data) {
     var rowDiv = document.createElement('div');
