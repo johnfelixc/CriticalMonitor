@@ -1,12 +1,12 @@
 body{
 	margin:0;
-	background-color:#369;
+	background-color:#def3e9;
 	overflow:auto;
 }
 
 #btn1{
-	background:#06F;
-	height:100%;
+	background:#003300;
+	height:70%;
 	width:20%;
 	position:relative;
 	margin-left:10px;
@@ -23,8 +23,8 @@ body{
 
 }
 #btn2{
-	background:#C30;
-	height:100%;
+	background:#006600;
+	height:70%;
 	width:20%;
 	position:relative;
 	margin-left:10px;
@@ -40,9 +40,9 @@ body{
 }
 
 #btn3{
-	background:#F60;
+	background:#339933;
 	border-color:#F60;
-	height:100%;
+	height:70%;
 	width:20%;
 	position:relative;
 	margin-left:10px;
@@ -58,9 +58,9 @@ body{
 }
 
 #btn4{
-	background:#C3C;
+	background:#339966;
 	border-color:#F60;
-	height:100%;
+	height:70%;
 	width:20%;
 	position:relative;
 	margin-left:10px;
@@ -77,13 +77,14 @@ body{
 
 
 #content{
-	background:#369;
-	height:900px;
+	background:#def3e9;
+	height:600px;
 	width:1200px;
 	position:relative;
 	top:500px;
 	z-index:0;
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 #backbutton{

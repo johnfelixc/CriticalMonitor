@@ -14,8 +14,8 @@ class MessageClient(object):
 
         print("SMS to :" + sendto)
         print("Message: " + msg)
-        #resp = self.twilioClient.messages.create(to=sendto, from_=config["twilioNumber"], body=msg)
-        #print(resp)
+        resp = self.twilioClient.messages.create(to=sendto, from_=config["twilioNumber"], body=msg)
+        print(resp)
         return
 
     def alertEMail(self, sendto, msg):
@@ -44,7 +44,7 @@ class MessageClient(object):
             ]
         }
         response = self.mailClient.client.mail.send.post(request_body=mailData)
-        #print(response.status_code)
+        print(response.status_code)
         #print(response.body)
         #print(response.headers)
 
