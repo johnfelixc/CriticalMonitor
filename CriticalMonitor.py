@@ -37,7 +37,7 @@ def livedeviceselect():
 def addrule():
 
     ruleDoc = request.get_json()
-    print(ruleDoc)
+    #print(ruleDoc)
 
     dbClient.addAlert(ruleDoc)
     alertEngine.addRulesToEngine(ruleDoc)

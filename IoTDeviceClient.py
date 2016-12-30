@@ -44,7 +44,7 @@ class IoTDeviceClient(object):
         deviceId = topic["deviceId"]
         event = topic["event"]
 
-        print(json.dumps(topic))
+        #print(json.dumps(topic))
 
         self.client.subscribeToDeviceEvents(deviceType, deviceId, event)
         self.client.subscribeToDeviceStatus(deviceType, deviceId)
@@ -71,8 +71,8 @@ class IoTDeviceClient(object):
                 self.eventCallbackFn(jsonData)
 
     def statusCallback(self, status):
-        print("Status")
-        print(type(status))
+        #print("Status")
+        #print(type(status))
         dataStr = ""
         if status.action == "Disconnect" :
             dataStr = tableRowTemplate % (status.time.isoformat(), status.device, status.action + " " + status.clientAddr + " (" + status.reason + ")")
