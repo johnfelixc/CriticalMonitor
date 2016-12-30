@@ -29,9 +29,9 @@ class Environ(object):
 
             self.appURI = self.application["application_uris"][0]
 
-            print(self.application)
-            print(self.service)
-            print(self.appURI)
+            #print(self.application)
+            #print(self.service)
+            #print(self.appURI)
 
             # Check we have an IoT Foundation service bound
             if "iotf-service" not in self.service:
@@ -62,21 +62,21 @@ class Environ(object):
             self.appURI = "localhost"
 
             self.organization = "2073pd"
-            self.authKey = "a-2073pd-3tmtatvatt"
-            self.authToken = "YAOw?gIgR1YGU01g)E"
+            self.authKey = "Obfuscated"
+            self.authToken = "Obfuscated"
             self.authMethod = "apikey"
 
             self.dbUsername = "bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix"
-            self.dbPassword = "a5f09f9b55db34401c96a7224fb796c325852580e11edec4304c338a68a086c2"
-            self.dbHost = "bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix.cloudant.com"
+            self.dbPassword = "Obfuscated"
+            self.dbHost = "Obfuscated"
             self.dbPort = 443
             self.dbURL = "https://bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix:a5f09f9b55db34401c96a7224fb796c325852580e11edec4304c338a68a086c2@bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix.cloudant.com"
 
-            self.twilioAccount = "AC217f6fd71bd0ddb1f7aab0ce5c811be4"
-            self.twilioToken = "4237954a775fa60d5c4621d2e7755a7e"
-            self.twilioNumber = "+4915735985470"
+            self.twilioAccount = "Obfuscated"
+            self.twilioToken = "Obfuscated"
+            self.twilioNumber = "Obfuscated"
 
-            self.sendgridToken = "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"
+            self.sendgridToken = "Obfuscated"
 
     def formatConfig(self):
 

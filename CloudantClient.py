@@ -47,13 +47,13 @@ class CloudantClient(object):
 
     def queryDoc(self, selStr, fieldsStr=["time", "deviceId"]):
         result = {}
-        print(selStr)
+        #print(selStr)
         for i, val in enumerate(fieldsStr):
             result[val] = []
 
         self.query = Query(database=self.currDocDB, selector=selStr, fields=fieldsStr)
         for doc in self.query.result:
-            print(doc)
+            #print(doc)
             for key, value in doc.items():
                 result[key].append(value)
         return result
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     #data = {"name": "OS", "Location": "Russia", "Temperature": -10}
     #dbClient.addDocument(data)
     #selStr = {"time": {"$gte": 1481358486, "$lte": 1481358496}}
-    print(dbClient.queryAlerts())
+    #print(dbClient.queryAlerts())
     dbClient.close()
 
 
