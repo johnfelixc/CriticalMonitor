@@ -69,7 +69,7 @@
         $(function() {
             $('a#deviceSelect').bind('click', function() {
                 $.getJSON("/livedeviceselect", {
-                    deviceId: $('input[name="deviceId"]').val(),
+                    deviceId: $('select[id="deviceId"]').val(),
                     deviceType: "RaspberryPi",
                     event: "sensor",
                 }, function(data) {
@@ -78,10 +78,16 @@
                   registerLiveEvents();
                   document.getElementById("plot-container").style.display = "inherit";
                 });
-
             });
+            $.getJSON("/getdeviceinfo", {
+               }, function(data) {
+                  for (deviceInfo in data.result.Devices.RaspberryPi) {
+                      var deviceInfoData = data.result.Devices.RaspberryPi[deviceInfo];
+                      var deviceId = document.getElementById('deviceId');
+                      deviceId.options[deviceId.options.length] = new Option(deviceInfoData, deviceInfoData);
+                  }
 
-
+                });
         });
     </script>
 
@@ -99,7 +105,8 @@
             Device ID
         </div>
         <div style="float:left; height:80%; width:50%; padding-top: 10px">
-            <input name="deviceId" type="text" placeholder="b827ebc03307" value="b827ebc03307"/>
+
+            <select id="deviceId" style="width: 200px">  </select>
         </div>
     </div>
     <div style="float:left; height:90%; width:18%">

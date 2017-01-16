@@ -55,28 +55,28 @@ class Environ(object):
             self.twilioToken = self.service["user-provided"][0]["credentials"]["authToken"]
             self.twilioNumber = "+4915735985470"
 
-            self.sendgridToken = "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"
+            self.sendgridToken = "obfuscated"
         else:
             # Not running in Bluemix, so you need to set up your own properties for local testing.
             # Ensure you blank these out before committing/uploading the code
             self.appURI = "localhost"
 
             self.organization = "2073pd"
-            self.authKey = "Obfuscated"
-            self.authToken = "Obfuscated"
+            self.authKey = "a-2073pd-3tmtatvatt"
+            self.authToken = "YAOw?gIgR1YGU01g)E"
             self.authMethod = "apikey"
 
             self.dbUsername = "bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix"
-            self.dbPassword = "Obfuscated"
-            self.dbHost = "Obfuscated"
+            self.dbPassword = "a5f09f9b55db34401c96a7224fb796c325852580e11edec4304c338a68a086c2"
+            self.dbHost = "bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix.cloudant.com"
             self.dbPort = 443
             self.dbURL = "https://bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix:a5f09f9b55db34401c96a7224fb796c325852580e11edec4304c338a68a086c2@bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix.cloudant.com"
 
-            self.twilioAccount = "Obfuscated"
-            self.twilioToken = "Obfuscated"
-            self.twilioNumber = "Obfuscated"
+            self.twilioAccount = "AC217f6fd71bd0ddb1f7aab0ce5c811be4"
+            self.twilioToken = "4237954a775fa60d5c4621d2e7755a7e"
+            self.twilioNumber = "+4915735985470"
 
-            self.sendgridToken = "Obfuscated"
+            self.sendgridToken = "obfuscated"
 
     def formatConfig(self):
 
