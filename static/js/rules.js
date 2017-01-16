@@ -66,8 +66,17 @@ function addRule() {
     var deviceId = document.getElementById("deviceId").value;
 
     var paramsLength = params.length;
+    if (paramsLength == 0) {
+        alert("Cannot add rule with no conditions");
+        return;
+    }
     rules["and"] = [];
     for (var index = 0; index < paramsLength; index++) {
+
+        if (!values[index]) {
+            alert("Cannot add rule with empty value in conditions");
+            return;
+        }
         var condStr = {};
         condStr[conds[index]] = [{"var": params[index]}, parseFloat(values[index])];
         rules.and.push(condStr);
@@ -84,10 +93,27 @@ function addRule() {
     jsonData["message"] = document.getElementById("alertMessage").value;
 
     if(document.getElementById("msgtype").selectedIndex == 0) {
-        jsonData["email"] = document.getElementById("sendto").value;
+        var emailField = document.getElementById("sendto").value;
+        var atpos = emailField.indexOf("@");
+        var dotpos = emailField.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=emailField.length) {
+            alert("Not a valid e-mail address");
+            return false;
+        }
+        jsonData["email"] = emailField;
     }
     else {
-        jsonData["sms"] = document.getElementById("sendto").value;
+        var smsField = document.getElementById("sendto").value;
+        var phoneno = /^\+?([0-9]{2})\)?[- ]?([0-9]{5})[- ]?([0-9]{5})$/;
+        if(smsField.match(phoneno)) {
+            jsonData["sms"] = document.getElementById("sendto").value;
+        }
+        else {
+            alert("Not a valid phone number");
+            return false;
+        }
+
+
     }
     jsonData["id"] = document.getElementById("ruleid").value;
     jsonData["refresh"] = 30;
@@ -137,11 +163,16 @@ function displayRuleRow(data) {
             if(strLogic) {
                 strLogic = strLogic.concat(" AND ");
             }
-            strLogic = strLogic.concat(logicJson[0].var);
-            strLogic = strLogic.concat(" ");
-            strLogic = strLogic.concat(key);
-            strLogic = strLogic.concat(" ");
-            strLogic = strLogic.concat(logicJson[1].toString());
+            if (logicJson[0].var == "deviceId") {
+                deviceID = logicJson[1].toString();
+            }
+            else {
+                strLogic = strLogic.concat(logicJson[0].var);
+                strLogic = strLogic.concat(" ");
+                strLogic = strLogic.concat(key);
+                strLogic = strLogic.concat(" ");
+                strLogic = strLogic.concat(logicJson[1].toString());
+            }
         }
     }
 

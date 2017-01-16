@@ -59,6 +59,18 @@ input[type=number]{
                         displayRuleRow(rulesList[index]);
                     }
                 });
+
+            $.getJSON("/getdeviceinfo", {
+               }, function(data) {
+                  for (deviceInfo in data.result.Devices.RaspberryPi) {
+                      var deviceInfoData = data.result.Devices.RaspberryPi[deviceInfo];
+                      var deviceId = document.getElementById('deviceId');
+                      deviceId.options[deviceId.options.length] = new Option(deviceInfoData, deviceInfoData);
+                  }
+
+            });
+
+
             document.getElementById("ruleid").value = 1;
         });
     </script>
@@ -79,7 +91,7 @@ input[type=number]{
 <div class="div-table" id="defineRules">
     <div class="div-table-row">
         <div class="ruleid-div-table-col"><input type="number" id="ruleid" disabled></div>
-        <div class="deviceid-div-table-col"><input type="text" id="deviceId" size="10"></div>
+        <div class="deviceid-div-table-col"><select id="deviceId" style="width: 120px">  </select></div>
         <div class="conditions-div-table-col" id="rulelist"><input type="button" value="Add Condition" onClick="addLogic('rulelist');"><br></div>
         <div class="actions-div-table-col">
             <select id="msgtype"> <option value="email"> Email </option> <option value="sms" selected="selected"> SMS </option> </select><input type="text" id="sendto">

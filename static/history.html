@@ -90,13 +90,22 @@ display:block;
                 alert("ok");
                 document.getElementById("plot-container").style.display = "inherit";
                 $.getJSON("/query", {
-                    deviceId: $('input[name="deviceId"]').val(),
-                    deviceType: $('select[name="deviceType"]').val(),
-                    starttime: $('input[name="starttime"]').val(),
-                    endtime: $('input[name="endtime"]').val()
+                    deviceId: $('select[id="deviceId"]').val(),
+                    deviceType: $('select[id="deviceType"]').val(),
+                    starttime: $('input[id="starttime"]').val(),
+                    endtime: $('input[id="endtime"]').val()
                 }, function(data) {
                     createLineSliderPlot(data.result);
                 });
+            });
+            $.getJSON("/getdeviceinfo", {
+               }, function(data) {
+                  for (deviceInfo in data.result.Devices.RaspberryPi) {
+                      var deviceInfoData = data.result.Devices.RaspberryPi[deviceInfo];
+                      var deviceId = document.getElementById('deviceId');
+                      deviceId.options[deviceId.options.length] = new Option(deviceInfoData, deviceInfoData);
+                  }
+
             });
 
 
@@ -119,7 +128,7 @@ display:block;
                     Device ID
                 </div>
                 <div style="float:left; height:90%; width:65%">
-                    <input name="deviceId" type="text" placeholder="b827ebc03307" value="b827ebc03307"/>
+                    <select id="deviceId" style="width: 200px">  </select>
                 </div>
             </div>
             <div style="float:left; height:90%; width:48%">
@@ -127,7 +136,7 @@ display:block;
                     Device Type
                 </div>
                 <div style="float:left; height:90%; width:65%">
-                     <select name="deviceType">   <option value="all">All</option> <option value="RaspberryPi">Raspberry Pi</option> </select>
+                     <select id="deviceType">   <option value="all">All</option> <option value="RaspberryPi">Raspberry Pi</option> </select>
                 </div>
             </div>
         </div>
@@ -137,7 +146,7 @@ display:block;
                     Start Date/Time
                 </div>
                 <div style="float:left; height:90%; width:65%">
-                    <input type="datetime-local" name="starttime"  value="2016-12-19T11:11">
+                    <input type="datetime-local" id="starttime"  value="2016-12-19T11:11">
                 </div>
             </div>
             <div style="float:left; height:90%; width:48%">
@@ -145,7 +154,7 @@ display:block;
                     End Date/Time
                 </div>
                 <div style="float:left; height:90%; width:65%">
-                    <input type="datetime-local" name="endtime" value="2016-12-19T11:12">
+                    <input type="datetime-local" id="endtime" value="2016-12-19T11:12">
                 </div>
             </div>
         </div>

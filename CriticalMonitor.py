@@ -52,6 +52,11 @@ def getrule():
 def getsettings():
     return jsonify(result=config)
 
+@app.route("/getdeviceinfo", methods=['GET', 'POST'])
+def getdeviceinfo():
+    return jsonify(result=iotClient.getDeviceInfo())
+
+
 @app.route("/query")
 def query():
     #print(request.args)
@@ -93,6 +98,7 @@ if __name__ == "__main__":
 
     options = {"org": config["organization"], "id": appId, "auth-method": config["authMethod"], "auth-key": config["authKey"], "auth-token": config["authToken"]}
     topic = {"deviceType": "+", "deviceId": "+", "event": "sensor"}
+    print(options)
     iotClient.initClient(options)
 
     dbClient.connectCloud()

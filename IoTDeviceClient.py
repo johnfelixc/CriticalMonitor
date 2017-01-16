@@ -15,6 +15,7 @@ class IoTDeviceClient(object):
         self.eventCallbackDbFn = None
         self.eventCallbackRulesFn = None
         self.liveDeviceID = None
+        self.devicesInfo = {}
         pass
 
     def logger(self):
@@ -25,6 +26,22 @@ class IoTDeviceClient(object):
             self.client = ibmiotf.application.Client(options)
             self.client.port = 443
             self.client.connect()
+
+            deviceObj = self.client.api.getDevices(
+                parameters={"_limit": 100, "_bookmark": None, "_sort": "typeId,deviceId"})
+
+            devicesList = {}
+            for devices in deviceObj["results"]:
+                if devices["typeId"] in devicesList.keys():
+                    devicesList[devices["typeId"]].append(devices["deviceId"])
+                else:
+                    devicesList[devices["typeId"]] = []
+                    devicesList[devices["typeId"]].append(devices["deviceId"])
+
+            self.devicesInfo["Devices"] = devicesList
+            self.devicesInfo["DeviceCount"] = deviceObj["meta"]["total_rows"]
+
+
         except ibmiotf.ConfigurationException as e:
             print(str(e))
             sys.exit()
@@ -34,6 +51,8 @@ class IoTDeviceClient(object):
         except ibmiotf.ConnectionException as e:
             print(str(e))
             sys.exit()
+
+
 
         self.client.deviceEventCallback = self.eventCallback
         self.client.deviceStatusCallback = self.statusCallback
@@ -97,11 +116,14 @@ class IoTDeviceClient(object):
         if callbackFn is not None:
             self.eventCallbackRulesFn = callbackFn
 
+    def getDeviceInfo(self):
+        return self.devicesInfo
+
 
 if __name__ == "__main__":
 
     iotClient = IoTDeviceClient()
-    
+
 
     organization = "2073pd"
     appId = "aaa" + "b827ebc03307"
@@ -115,11 +137,28 @@ if __name__ == "__main__":
     options = {"org": organization, "id": appId, "auth-method": authMethod, "auth-key": authKey, "auth-token": authToken}
     topic = {"deviceType": "+", "deviceId": "+", "event": "sensor"}
     iotClient.initClient(options)
-    iotClient.subscribeTopic(topic)
+    deviceObj = iotClient.client.api.getDevices(parameters = {"_limit": 100, "_bookmark": None, "_sort": "typeId,deviceId"})
 
-    while True:
+    devicesList = {}
+    devicesInfo = {}
+    for devices in deviceObj["results"]:
+        if devices["typeId"] in devicesList.keys():
+            devicesList[devices["typeId"]].append(devices["deviceId"])
+        else:
+            devicesList[devices["typeId"]] = []
+            devicesList[devices["typeId"]].append(devices["deviceId"])
+
+
+    devicesInfo["Devices"] = devicesList
+    devicesInfo["DeviceCount"] = deviceObj["meta"]["total_rows"]
+
+    print(iotClient.getDeviceInfo())
+
+    #iotClient.subscribeTopic(topic)
+
+    while False:
         time.sleep(1)
-    
+
     
 
 
