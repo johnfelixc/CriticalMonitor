@@ -145,6 +145,74 @@ function updateGaugeACCurrent(plotData) {
 
 }
 
+function createGaugeFrequency(plotData) {
+
+    var data = getDataTemplate();
+    data[0].text = plotData;
+    data[0].name = "Frequency (Hz)";
+    data[1].values = [50/5, 50/5, 50/5, 50/5, 50/5, 50];
+    data[1].text = ['Off', 'Low <br> Frequency', 'Normal', 'High <br> Frequency', 'Off', ''];
+    data[1].labels = ['0', '121-150', '91-120', '61-90', '31-60', ''];
+    data[1].marker.colors = ['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
+                             'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
+                             'rgba(210, 206, 145, .5)', 'rgba(255, 255, 255, 0)'];
+
+    var layout = getLayoutTemplate();
+    layout.shapes[0].path = formatPathMeterPoint(plotData, 20);
+    layout.title = "<b>Frequency</b> <br> Current: ";
+    layout.title = layout.title.concat(plotData.toString());
+    layout.title = layout.title.concat(" Hz");
+
+    Plotly.newPlot("frequencygauge", data, layout);
+}
+
+function updateGaugeFrequency(plotData) {
+
+    var plotDiv = document.getElementById('frequencygauge');
+
+    plotDiv.data[0].text = plotData;
+    plotDiv.layout.shapes[0].path = formatPathMeterPoint(plotData, 20);
+    plotDiv.layout.title = "<b>Frequency</b> <br> Current: ";
+    plotDiv.layout.title = plotDiv.layout.title.concat(plotData.toString());
+    plotDiv.layout.title = plotDiv.layout.title.concat(" Hz");
+
+    Plotly.redraw(plotDiv);
+
+}
+
+function createGaugePowerFactor(plotData) {
+
+    var data = getDataTemplate();
+    data[0].text = plotData;
+    data[0].name = "Power Factor";
+    data[1].values = [50/5, 50/5, 50/5, 50/5, 50/5, 50];
+    data[1].text = ['Off', 'Poor', 'Normal', 'Poor', 'Off', ''];
+    data[1].labels = ['0', '121-150', '91-120', '61-90', '31-60', ''];
+    data[1].marker.colors = ['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
+                             'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
+                             'rgba(210, 206, 145, .5)', 'rgba(255, 255, 255, 0)'];
+
+    var layout = getLayoutTemplate();
+    layout.shapes[0].path = formatPathMeterPoint(plotData, 20);
+    layout.title = "<b>Power Factor</b> <br> Current: ";
+    layout.title = layout.title.concat(plotData.toString());
+
+    Plotly.newPlot("powerfactorgauge", data, layout);
+}
+
+function updateGaugePowerFactor(plotData) {
+
+    var plotDiv = document.getElementById('powerfactorgauge');
+
+    plotDiv.data[0].text = plotData;
+    plotDiv.layout.shapes[0].path = formatPathMeterPoint(plotData, 20);
+    plotDiv.layout.title = "<b>Power Factor</b> <br> Current: ";
+    plotDiv.layout.title = plotDiv.layout.title.concat(plotData.toString());
+
+    Plotly.redraw(plotDiv);
+
+}
+
 function createGaugeDCVoltage(plotData) {
 
     var data = getDataTemplate();

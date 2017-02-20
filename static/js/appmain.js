@@ -23,6 +23,12 @@ function registerLiveEvents() {
             updateGaugeACCurrent(jsonData["AC Current"]);
             updateLineACCurrent(timestamp, jsonData["AC Current"]);
 
+            updateGaugeFrequency(jsonData["Frequency"]);
+            updateLineFrequency(timestamp, jsonData["Frequency"]);
+
+            updateGaugePowerFactor(jsonData["Power factor"]);
+            updateLinePowerFactor(timestamp, jsonData["Power factor"]);
+
             updateGaugeDCVoltage(jsonData["DC Voltage"]);
             updateLineDCVoltage(timestamp, jsonData["DC Voltage"]);
 
@@ -44,6 +50,12 @@ function createLivePlots() {
 
     createGaugeACCurrent(0);
     createLineACCurrent();
+
+    createGaugeFrequency(0);
+    createLineFrequency();
+
+    createGaugePowerFactor(0);
+    createLinePowerFactor();
 
     createGaugeDCVoltage(0);
     createLineDCVoltage();

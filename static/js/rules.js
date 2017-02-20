@@ -13,6 +13,8 @@ var selectParamItems = {
     "Air Flow" : "Air Flow",
     "AC Voltage" : "AC Voltage",
     "AC Current" : "AC Current",
+    "Frequency" : "Frequency",
+    "Power Factor" : "Power Factor",
     "DC Voltage": "DC Voltage",
     "DC Current" : "DC Current"
 };
@@ -160,13 +162,14 @@ function displayRuleRow(data) {
     for(var index = 0, size = logicRulesList.length; index < size ; index++) {
         for (var key in logicRulesList[index]) {
             var logicJson = logicRulesList[index][key];
-            if(strLogic) {
-                strLogic = strLogic.concat(" AND ");
-            }
+
             if (logicJson[0].var == "deviceId") {
                 deviceID = logicJson[1].toString();
             }
             else {
+                if(strLogic) {
+                    strLogic = strLogic.concat(" AND ");
+                }
                 strLogic = strLogic.concat(logicJson[0].var);
                 strLogic = strLogic.concat(" ");
                 strLogic = strLogic.concat(key);

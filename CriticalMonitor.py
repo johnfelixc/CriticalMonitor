@@ -80,9 +80,9 @@ def query():
     if dateRange:
         jsonQuery["timestamp"] = dateRange
 
-    #print(jsonQuery)
-    jsonData = dbClient.queryDoc(jsonQuery, ["timestamp", "Air Flow", "AC Voltage", "AC Current", "DC Voltage", "DC Current"])
-    #print(jsonData)
+    print(jsonQuery)
+    jsonData = dbClient.queryDoc(jsonQuery, ["timestamp", "Air Flow", "AC Voltage", "AC Current", "Frequency", "Power factor", "DC Voltage", "DC Current"])
+    print(jsonData)
 
     return jsonify(result=jsonData)
 
@@ -91,7 +91,7 @@ port = os.getenv('PORT', '5000')
 if __name__ == "__main__": 
 
 
-    appId = "aaa" + "b827ebc03307"
+    appId = "aab" + "b827ebc03307"
     deviceType = "RaspberryPi"
     deviceId = "b827ebc03307"
     event = "status"
