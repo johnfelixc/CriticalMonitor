@@ -79,6 +79,84 @@ function updateLineACCurrent(x, y){
     Plotly.redraw(plotDiv);
 }
 
+function createLineFrequency() {
+
+    var trace3 = {
+      x: [],
+      y: [],
+      mode: 'lines+markers',
+      name: 'Scatter and Lines'
+    };
+
+    var data = [trace3];
+
+    var layout = {
+      title: 'Frequency (in Hz)',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
+      xaxis: {
+        title: 'Time'
+      },
+      yaxis: {
+        title: 'Hertz (Hz)'
+      },
+      height: 400,
+      width: 450
+    };
+
+    Plotly.newPlot('frequencyline', data, layout);
+}
+
+function updateLineFrequency(x, y){
+
+    var plotDiv = document.getElementById('frequencyline');
+
+    plotDiv.data[0].x.push(x);
+    plotDiv.data[0].y.push(y);
+
+    Plotly.redraw(plotDiv);
+}
+
+function createLinePowerFactor() {
+
+    var trace3 = {
+      x: [],
+      y: [],
+      mode: 'lines+markers',
+      name: 'Scatter and Lines'
+    };
+
+    var data = [trace3];
+
+    var layout = {
+      title: 'Power Factor',
+        paper_bgcolor: 'rgb(222, 243, 233)',
+        bgcolor: 'rgb(222, 243, 233)',
+        plot_bgcolor: 'rgb(222, 243, 233)',
+      xaxis: {
+        title: 'Time'
+      },
+      yaxis: {
+        title: 'Power Factor'
+      },
+      height: 400,
+      width: 450
+    };
+
+    Plotly.newPlot('powerfactorline', data, layout);
+}
+
+function updateLinePowerFactor(x, y){
+
+    var plotDiv = document.getElementById('powerfactorline');
+
+    plotDiv.data[0].x.push(x);
+    plotDiv.data[0].y.push(y);
+
+    Plotly.redraw(plotDiv);
+}
+
 function createLineDCVoltage() {
 
     var trace3 = {
