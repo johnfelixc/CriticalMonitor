@@ -80,6 +80,16 @@ function createLineSliderPlot(dataset) {
     layout.yaxis.title = "Amps (A)";
     Plotly.newPlot('accurrentlinehistory', data, layout);
 
+    data[0].y = dataset["Frequency"];
+    layout.title = "Frequency (Hz)";
+    layout.yaxis.title = "Hertz (Hz)";
+    Plotly.newPlot('frequencylinehistory', data, layout);
+
+    data[0].y = dataset["Power Factor"];
+    layout.title = "Power Factor";
+    layout.yaxis.title = "Power factor";
+    Plotly.newPlot('powerfactorlinehistory', data, layout);
+
     data[0].y = dataset["DC Voltage"];
     layout.title = "DC Voltage";
     layout.yaxis.title = "Voltage (V)";

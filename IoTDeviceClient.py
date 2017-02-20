@@ -24,7 +24,7 @@ class IoTDeviceClient(object):
     def initClient(self, options):
         try:
             self.client = ibmiotf.application.Client(options)
-            self.client.port = 443
+            #self.client.port = 443
             self.client.connect()
 
             deviceObj = self.client.api.getDevices(
