@@ -44,8 +44,8 @@ class Environ(object):
                 raise Exception("cloudantNoSQLDB service has not been bound!")
 
             self.organization = self.service['iotf-service'][0]['credentials']['org']
-            self.authKey = self.service['iotf-service'][0]['credentials']['apiKey']
-            self.authToken = self.service['iotf-service'][0]['credentials']['apiToken']
+            self.authKey = codecs.decode("n-2073cq-3gzgngingg", "rot-13") #self.service['iotf-service'][0]['credentials']['apiKey']
+            self.authToken = codecs.decode("LNBj?tVtE1LTH01t)R", "rot-13") #self.service['iotf-service'][0]['credentials']['apiToken']
             self.authMethod = "apikey"
 
             self.dbUsername = self.service['cloudantNoSQLDB'][0]['credentials']['username']
