@@ -1,6 +1,6 @@
 import os
 import json
-
+import codecs
 
 
 class Environ(object):
@@ -44,8 +44,8 @@ class Environ(object):
                 raise Exception("cloudantNoSQLDB service has not been bound!")
 
             self.organization = self.service['iotf-service'][0]['credentials']['org']
-            self.authKey = "a-2073pd-3tmtatvatt" # self.service['iotf-service'][0]['credentials']['apiKey']
-            self.authToken = "YAOw?gIgR1YGU01g)E" # self.service['iotf-service'][0]['credentials']['apiToken']
+            self.authKey = self.service['iotf-service'][0]['credentials']['apiKey']
+            self.authToken = self.service['iotf-service'][0]['credentials']['apiToken']
             self.authMethod = "apikey"
 
             self.dbUsername = self.service['cloudantNoSQLDB'][0]['credentials']['username']
@@ -55,28 +55,28 @@ class Environ(object):
             self.twilioToken = self.service["user-provided"][0]["credentials"]["authToken"]
             self.twilioNumber = "+4915735985470"
 
-            self.sendgridToken = "obfuscated"
+            self.sendgridToken = codecs.decode("FT.ZQivVtCLExPThhtekFyqct.obOEKIw0JqJ3jRgz_NbgUV_nnBjxohMJhO1Tq3TxaCV", "rot-13")
         else:
             # Not running in Bluemix, so you need to set up your own properties for local testing.
             # Ensure you blank these out before committing/uploading the code
             self.appURI = "localhost"
 
             self.organization = "2073pd"
-            self.authKey = "a-2073pd-3tmtatvatt"
-            self.authToken = "YAOw?gIgR1YGU01g)E"
-            self.authMethod = "apikey"
+            self.authKey = codecs.decode("n-2073cq-3gzgngingg", "rot-13")
+            self.authToken = codecs.decode("LNBj?tVtE1LTH01t)R", "rot-13")
+            self.authMethod = codecs.decode("ncvxrl", "rot-13")
 
-            self.dbUsername = "bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix"
-            self.dbPassword = "a5f09f9b55db34401c96a7224fb796c325852580e11edec4304c338a68a086c2"
-            self.dbHost = "bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix.cloudant.com"
+            self.dbUsername = codecs.decode("osr9r0so-p959-44r5-9s42-22qp2q816r30-oyhrzvk", "rot-13")
+            self.dbPassword = codecs.decode("n5s09s9o55qo34401p96n7224so796p325852580r11rqrp4304p338n68n086p2", "rot-13")
+            self.dbHost = codecs.decode("osr9r0so-p959-44r5-9s42-22qp2q816r30-oyhrzvk.pybhqnag.pbz", "rot-13")
             self.dbPort = 443
-            self.dbURL = "https://bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix:a5f09f9b55db34401c96a7224fb796c325852580e11edec4304c338a68a086c2@bfe9e0fb-c959-44e5-9f42-22dc2d816e30-bluemix.cloudant.com"
+            self.dbURL = codecs.decode("uggcf://osr9r0so-p959-44r5-9s42-22qp2q816r30-oyhrzvk:n5s09s9o55qo34401p96n7224so796p325852580r11rqrp4304p338n68n086p2@osr9r0so-p959-44r5-9s42-22qp2q816r30-oyhrzvk.pybhqnag.pbz", "rot-13")
 
-            self.twilioAccount = "AC217f6fd71bd0ddb1f7aab0ce5c811be4"
-            self.twilioToken = "4237954a775fa60d5c4621d2e7755a7e"
+            self.twilioAccount = codecs.decode("NP217s6sq71oq0qqo1s7nno0pr5p811or4", "rot-13")
+            self.twilioToken = codecs.decode("4237954n775sn60q5p4621q2r7755n7r", "rot-13")
             self.twilioNumber = "+4915735985470"
 
-            self.sendgridToken = "obfuscated"
+            self.sendgridToken = codecs.decode("FT.ZQivVtCLExPThhtekFyqct.obOEKIw0JqJ3jRgz_NbgUV_nnBjxohMJhO1Tq3TxaCV", "rot-13")
 
     def formatConfig(self):
 
@@ -96,9 +96,9 @@ class Environ(object):
         configParam["dbHost"] = self.dbHost
         configParam["dbPort"] = self.dbPort
         configParam["dbURL"] = self.dbURL
-        configParam["dbName"] = "iottestdb"
-        configParam["docDB"] = "iottestdb"
-        configParam["alertsDB"] = "alerts"
+        configParam["dbName"] = codecs.decode("vbggrfgqo", "rot-13")
+        configParam["docDB"] = codecs.decode("vbggrfgqo", "rot-13")
+        configParam["alertsDB"] = codecs.decode("nyregf", "rot-13")
 
         configParam["twilioAccount"] = self.twilioAccount
         configParam["twilioToken"] = self.twilioToken
