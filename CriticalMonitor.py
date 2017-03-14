@@ -91,7 +91,7 @@ port = os.getenv('PORT', '5000')
 if __name__ == "__main__": 
 
 
-    appId = "aab" + "b827ebc03307"
+    appId = "aaa" + "b827ebc03307"
     deviceType = "RaspberryPi"
     deviceId = "b827ebc03307"
     event = "status"
