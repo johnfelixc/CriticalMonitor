@@ -66,7 +66,7 @@ class IoTDeviceClient(object):
         #print(json.dumps(topic))
 
         self.client.subscribeToDeviceEvents(deviceType, deviceId, event)
-        self.client.subscribeToDeviceStatus(deviceType, deviceId)
+        #self.client.subscribeToDeviceStatus(deviceType, deviceId)
 
     def eventCallback(self, event):
         #print("Event")
