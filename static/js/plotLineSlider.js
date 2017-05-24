@@ -85,7 +85,7 @@ function createLineSliderPlot(dataset) {
     layout.yaxis.title = "Hertz (Hz)";
     Plotly.newPlot('frequencylinehistory', data, layout);
 
-    data[0].y = dataset["Power Factor"];
+    data[0].y = dataset["Power factor"];
     layout.title = "Power Factor";
     layout.yaxis.title = "Power factor";
     Plotly.newPlot('powerfactorlinehistory', data, layout);
