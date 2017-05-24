@@ -82,7 +82,7 @@ def query():
 
     print(jsonQuery)
     jsonData = dbClient.queryDoc(jsonQuery, ["timestamp", "Air Flow", "AC Voltage", "AC Current", "Frequency", "Power factor", "DC Voltage", "DC Current"])
-    print(jsonData)
+    #print(jsonData)
 
     return jsonify(result=jsonData)
 
