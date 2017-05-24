@@ -47,11 +47,12 @@ class CloudantClient(object):
 
     def queryDoc(self, selStr, fieldsStr=["time", "deviceId"]):
         result = {}
+        sortStr = [{"timestamp": "asc"}]
         #print(selStr)
         for i, val in enumerate(fieldsStr):
             result[val] = []
 
-        self.query = Query(database=self.currDocDB, selector=selStr, fields=fieldsStr)
+        self.query = Query(database=self.currDocDB, selector=selStr, fields=fieldsStr, sort=sortStr)
         for doc in self.query.result:
             #print(doc)
             for key, value in doc.items():
