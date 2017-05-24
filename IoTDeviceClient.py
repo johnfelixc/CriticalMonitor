@@ -73,6 +73,8 @@ class IoTDeviceClient(object):
         #print(json.dumps(event.data))
         jsonData = {}
         jsonData["timestamp"] = event.timestamp.timestamp()
+        #print(event)
+        print(jsonData["timestamp"])
         jsonData["event"] = event.event
         jsonData["deviceId"] = event.deviceId
         jsonData["deviceType"] = event.deviceType
